@@ -113,6 +113,12 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
   background: #fff;
 }
 
+.nav-panel .chapter-select {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
 .question-nav {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -280,11 +286,52 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
 
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
+  .nav-panel {
+    max-height: 26vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px;
+  }
+  .nav-panel h3 {
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+  .nav-panel .chapter-select {
+    top: -1px;
+    margin-bottom: 6px;
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+  .question-nav {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 4px;
+  }
+  .qnav-btn {
+    padding: 7px 0;
+    min-height: 36px;
+    font-size: 13px;
+  }
+  #questionCard {
+    margin-top: 6px;
+  }
   .exam-info-row {
     flex-direction: column;
     align-items: stretch;
   }
   .exam-submit-top {
     align-self: flex-end;
+  }
+}
+
+@media (max-width: 600px) {
+  .nav-panel {
+    max-height: 20vh;
+  }
+  .question-nav {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .qnav-btn {
+    min-height: 34px;
+    font-size: 12px;
   }
 }

@@ -11,9 +11,10 @@ const el = {
   status: document.getElementById('status'),
   learnModeBtn: document.getElementById('learnModeBtn'),
   examModeBtn: document.getElementById('examModeBtn'),
-  shuffleLearnBtn: document.getElementById('shuffleLearnBtn'),
   resetBtn: document.getElementById('resetBtn'),
   examInfo: document.getElementById('examInfo'),
+  navPanel: document.getElementById('navPanel'),
+  questionNav: document.getElementById('questionNav'),
   questionCard: document.getElementById('questionCard'),
   qIndex: document.getElementById('qIndex'),
   qCategory: document.getElementById('qCategory'),
@@ -104,7 +105,43 @@ function setMode(mode) {
     el.examInfo.classList.remove('hidden');
     el.examInfo.textContent = 'Đề 30 câu: 8-10 khái niệm/quy tắc, 1 nghiệp vụ/đạo đức, 1 kỹ thuật/cấu tạo, 9-11 biển báo, 8-9 sa hình/tình huống.';
   }
+  renderNav();
   renderQuestion();
+}
+
+function renderNav() {
+  if (!state.questions.length) {
+    el.navPanel.classList.add('hidden');
+    return;
+  }
+  el.navPanel.classList.remove('hidden');
+  el.questionNav.innerHTML = '';
+
+  let lastCategory = '';
+  state.questions.forEach((q, i) => {
+    const category = q.category || 'Không rõ nhóm';
+    if (state.mode === 'learn' && category !== lastCategory) {
+      const sep = document.createElement('div');
+      sep.className = 'chapter-sep';
+      sep.textContent = category;
+      el.questionNav.appendChild(sep);
+      lastCategory = category;
+    }
+
+    const btn = document.createElement('button');
+    btn.className = 'qnav-btn';
+    const chosen = state.answers[q.id];
+    const isWrongInLearn = state.mode === 'learn' && chosen && chosen !== q.correctAnswer;
+    if (i === state.index) btn.classList.add('active');
+    if (chosen) btn.classList.add('answered');
+    if (isWrongInLearn) btn.classList.add('wrong');
+    btn.textContent = String(i + 1);
+    btn.onclick = () => {
+      state.index = i;
+      renderQuestion();
+    };
+    el.questionNav.appendChild(btn);
+  });
 }
 
 function renderQuestion() {
@@ -152,6 +189,7 @@ function renderQuestion() {
   }
 
   renderActions();
+  renderNav();
 }
 
 function chooseAnswer(answer) {
@@ -203,12 +241,6 @@ function submitExam() {
 
 el.learnModeBtn.onclick = () => setMode('learn');
 el.examModeBtn.onclick = () => setMode('exam');
-el.shuffleLearnBtn.onclick = () => {
-  if (state.mode !== 'learn') return;
-  state.questions = shuffle(state.questions);
-  state.index = 0;
-  renderQuestion();
-};
 el.resetBtn.onclick = () => setMode(state.mode);
 
 async function loadData() {

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ôn tập & Thi thử 600 câu GPLX</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <h1>Ôn tập & Thi thử 600 câu GPLX</h1>
+      <p id="status">Đang tải dữ liệu...</p>
+    </header>
+
+    <main>
+      <section class="panel controls">
+        <button id="learnModeBtn">Chế độ học</button>
+        <button id="examModeBtn">Chế độ thi (30 câu)</button>
+        <button id="shuffleLearnBtn">Đảo câu học</button>
+        <button id="resetBtn">Làm lại</button>
+      </section>
+
+      <section id="examInfo" class="panel hidden"></section>
+
+      <section id="questionCard" class="panel hidden">
+        <div class="qhead">
+          <div id="qIndex"></div>
+          <div id="qCategory"></div>
+        </div>
+
+        <h2 id="qText"></h2>
+
+        <div id="qImageWrap" class="hidden">
+          <img id="qImage" alt="Hình câu hỏi" />
+        </div>
+
+        <div id="options" class="options"></div>
+        <div id="actions" class="actions"></div>
+        <div id="explain" class="explain hidden"></div>
+      </section>
+
+      <section id="resultBox" class="panel hidden"></section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -50,6 +50,7 @@ main { margin-top: 12px; }
 }
 
 .content-col { min-width: 0; }
+.content-col { position: relative; }
 
 .panel {
   background: var(--panel);
@@ -65,6 +66,19 @@ main { margin-top: 12px; }
   flex-wrap: wrap;
 }
 
+#reviewWrongModeBtn {
+  background: #f59e0b;
+}
+
+#reviewWrongModeBtn:disabled {
+  background: #94a3b8;
+  color: #e2e8f0;
+}
+
+#resetBtn {
+  margin-left: auto;
+}
+
 button {
   border: 0;
   border-radius: 8px;
@@ -78,11 +92,25 @@ button {
 button:hover { filter: brightness(0.95); }
 button:disabled { opacity: 0.5; cursor: not-allowed; }
 
+.controls button.mode-active {
+  border: 3px solid #0f172a;
+  box-shadow: 0 0 0 2px #fff inset;
+}
+
 .hidden { display: none; }
 
 .nav-panel h3 {
   margin: 0 0 10px;
   color: var(--muted);
+}
+
+.chapter-select {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
 }
 
 .question-nav {
@@ -182,9 +210,81 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
   line-height: 1.5;
 }
 
+.blurred {
+  filter: blur(4px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.exam-start-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.exam-start-overlay.hidden {
+  display: none;
+}
+
+.exam-start-btn {
+  font-size: 24px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  background: #2563eb;
+}
+
+.exam-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.exam-submit-top {
+  align-self: flex-start;
+  white-space: nowrap;
+}
+
+.timer-box {
+  margin-top: 0;
+  border: 2px solid #93c5fd;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #eff6ff;
+  display: inline-block;
+}
+
+.timer-label {
+  font-size: 12px;
+  color: #1e3a8a;
+  font-weight: 700;
+}
+
+.timer {
+  margin-top: 4px;
+  font-weight: 800;
+  color: #0f172a;
+  font-size: 34px;
+  letter-spacing: 1px;
+}
+
+.timer-box.danger .timer {
+  color: #dc2626;
+}
+
 #resultBox h3 { margin: 0 0 8px; }
 #resultBox p { margin: 6px 0; }
 
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
+  .exam-info-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .exam-submit-top {
+    align-self: flex-end;
+  }
 }
